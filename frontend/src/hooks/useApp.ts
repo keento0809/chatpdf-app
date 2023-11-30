@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { Message, ProcessData, ProcessMessage } from "../types";
+import { MessageType, ProcessData, ProcessMessage } from "../types";
 
 export const useApp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sourceId, setSourceId] = useState("");
-  const [chatMessages, setChatMessages] = useState<Message[]>([
+  const [chatMessages, setChatMessages] = useState<MessageType[]>([
     {
       sender: "assistant",
       message: "商品についてお答え致します。",
@@ -33,7 +33,7 @@ export const useApp = () => {
   }
 
   const handleSendMessage = async (message: string) => {
-    const newChatMessage: Message = {
+    const newChatMessage: MessageType = {
       sender: "user",
       message: message,
       direction: "outgoing",
@@ -53,7 +53,7 @@ export const useApp = () => {
 
   async function processMessage(
     latestChatMessages: ProcessMessage[],
-    newChatMessage: Message
+    newChatMessage: MessageType
   ) {
     const processData: ProcessData = {
       sourceId,
@@ -84,7 +84,7 @@ export const useApp = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setTyping(false);
+      setIsLoading(false);
     }
   }
 

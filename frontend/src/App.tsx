@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import {
+  MainContainer,
+  ChatContainer,
+  MessageList,
+  Message,
+  MessageInput,
+  TypingIndicator,
+  Avatar,
+} from "@chatscope/chat-ui-kit-react";
+import { LayoutWrapper } from "./components/wrapper/LayoutWrapper";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <LayoutWrapper>
+      <MainContainer>
+        <ChatContainer>
+          <MessageList
+            scrollBehavior="smooth"
+            // typingIndicator={typing ? <TypingIndicator /> : null}
+          >
+            {/* {chatMessages.map((message, index) => {
+              return (
+                <Message key={message.message + index} model={message}>
+                  <Avatar
+                    src={message.sender !== "user" ? logoImg : AvatarImg}
+                    name="logo"
+                  />
+                </Message>
+              );
+            })} */}
+          </MessageList>
+          <MessageInput
+            placeholder="Ask question here"
+            attachButton={false}
+            // onSend={handleSendMessage}
+          />
+        </ChatContainer>
+      </MainContainer>
+    </LayoutWrapper>
+  );
 }
 
-export default App
+export default App;

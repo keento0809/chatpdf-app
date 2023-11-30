@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { config } = require("../config");
+const { config } = require("../config/config");
 
 const data = {
   url: "https://thejino.com/wp-content/uploads/2023/11/Reference_Ecommerce_Site.pdf",

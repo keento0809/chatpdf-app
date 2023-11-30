@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Message } from "../types";
+import { Message, ProcessData, ProcessMessage } from "../types";
 
 export const useApp = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +32,65 @@ export const useApp = () => {
     }
   }
 
+  const handleSendMessage = async (message: string) => {
+    const newChatMessage: Message = {
+      sender: "user",
+      message: message,
+      direction: "outgoing",
+      position: "normal",
+    };
+    const latestChatMessages = [...chatMessages, newChatMessage];
+    const processChatMessages = latestChatMessages.map((message) => {
+      return {
+        role: message.sender === "ChatGPT" ? "assistant" : message.sender,
+        content: message.message,
+      };
+    });
+    setChatMessages(latestChatMessages);
+    setIsLoading(true);
+    await processMessage(processChatMessages, newChatMessage);
+  };
+
+  async function processMessage(
+    latestChatMessages: ProcessMessage[],
+    newChatMessage: Message
+  ) {
+    const processData: ProcessData = {
+      sourceId,
+      messages: latestChatMessages,
+    };
+    if (!processData.sourceId || !processData.messages)
+      throw Error("Invalid processData");
+
+    try {
+      const response = await fetch("http://localhost:8000/message", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(processData),
+      });
+      const content = await response.json();
+      setChatMessages([
+        ...chatMessages,
+        newChatMessage,
+        {
+          message: content.data,
+          sender: "ChatGPT",
+          direction: "incoming",
+          position: "normal",
+        },
+      ]);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setTyping(false);
+    }
+  }
+
   return {
     isLoading,
+    chatMessages,
+    handleSendMessage,
   };
 };

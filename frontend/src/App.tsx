@@ -7,34 +7,33 @@ import {
   Message,
   MessageInput,
   TypingIndicator,
-  Avatar,
 } from "@chatscope/chat-ui-kit-react";
 import { LayoutWrapper } from "./components/wrapper/LayoutWrapper";
+import { useApp } from "./hooks/useApp";
+import { AvatarComponent } from "./components/avatar/Avatar";
 
 function App() {
+  const { isLoading, chatMessages, handleSendMessage } = useApp();
   return (
     <LayoutWrapper>
       <MainContainer>
         <ChatContainer>
           <MessageList
             scrollBehavior="smooth"
-            // typingIndicator={typing ? <TypingIndicator /> : null}
+            typingIndicator={isLoading ? <TypingIndicator /> : null}
           >
-            {/* {chatMessages.map((message, index) => {
+            {chatMessages.map((message, index) => {
               return (
                 <Message key={message.message + index} model={message}>
-                  <Avatar
-                    src={message.sender !== "user" ? logoImg : AvatarImg}
-                    name="logo"
-                  />
+                  <AvatarComponent isUser={message.sender !== "user"} />
                 </Message>
               );
-            })} */}
+            })}
           </MessageList>
           <MessageInput
             placeholder="Ask question here"
             attachButton={false}
-            // onSend={handleSendMessage}
+            onSend={handleSendMessage}
           />
         </ChatContainer>
       </MainContainer>

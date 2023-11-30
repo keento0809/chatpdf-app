@@ -54,3 +54,11 @@ backend ディレクトリで以下のコマンドを実行し、サーバーを
 ```
 npm run dev
 ```
+
+## API KEY の追加
+
+backend ディレクトリに`.env`ファイルを作成し、下記の通りに API KEY を追加してください。
+
+```javascript
+API_KEY = "お持ちのAPI KEYの値";
+```

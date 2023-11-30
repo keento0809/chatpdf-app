@@ -39,6 +39,7 @@ function App() {
             placeholder="Ask question here"
             attachButton={false}
             onSend={handleSendMessage}
+            style={{ textAlign: "left" }}
           />
         </ChatContainer>
       </MainContainer>

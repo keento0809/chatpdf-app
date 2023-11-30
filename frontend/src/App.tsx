@@ -7,10 +7,12 @@ import {
   Message,
   MessageInput,
   TypingIndicator,
+  Avatar,
 } from "@chatscope/chat-ui-kit-react";
 import { LayoutWrapper } from "./components/wrapper/LayoutWrapper";
 import { useApp } from "./hooks/useApp";
-import { AvatarComponent } from "./components/avatar/Avatar";
+import logoImg from "./assets/images/supermarket.jpg";
+import AvatarImg from "./assets/images/avatar-image.jpg";
 
 function App() {
   const { isLoading, chatMessages, handleSendMessage } = useApp();
@@ -25,7 +27,10 @@ function App() {
             {chatMessages.map((message, index) => {
               return (
                 <Message key={message.message + index} model={message}>
-                  <AvatarComponent isUser={message.sender !== "user"} />
+                  <Avatar
+                    src={message.sender !== "user" ? logoImg : AvatarImg}
+                    name="logo"
+                  />
                 </Message>
               );
             })}

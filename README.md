@@ -1,5 +1,7 @@
 # chatpdf-app
 
+<img width="634" alt="スクリーンショット 2023-12-01 13 53 51" src="https://github.com/keento0809/chatpdf-app/assets/65790344/ce2ab202-9055-400e-866a-2e3eede23743">
+
 ## 概要
 
 読み込んだ PDF ファイルの内容に関して答えてくれる AI BOT アプリケーションです。
